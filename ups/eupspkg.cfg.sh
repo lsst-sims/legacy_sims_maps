@@ -1,4 +1,4 @@
-fetch()
+prep()
 {
     mkdir DustMaps
     cd DustMaps
