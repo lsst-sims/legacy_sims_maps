@@ -17,5 +17,5 @@ prep()
     cd ..
     mkdir -p StarMaps
     cd StarMaps
-    curl -O http://lsst-web.ncsa.illinois.edu/sim-data/StarMaps/starDensity_nside_64.npz
+    curl -O http://lsst-web.ncsa.illinois.edu/sim-data/StarMaps/starDensity_r_nside_64.npz
 }
