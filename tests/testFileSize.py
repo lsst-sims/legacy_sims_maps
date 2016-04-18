@@ -13,7 +13,7 @@ class MapSizeUnitTest(unittest.TestCase):
     longMessage = True
 
     def setUp(self):
-        self.lfs_msg='\nYou may not have git-lfs installed\n' + \
+        self.lfs_msg='\nYou may not have git-lfs installed ' + \
                      'on your system\n' + \
                      'http://developer.lsst.io/en/latest/tools/git_lfs.html'
 
