@@ -5,12 +5,20 @@ import lsst.utils.tests as utilsTests
 from lsst.utils import getPackageDir
 
 class MapSizeUnitTest(unittest.TestCase):
+    """
+    Check that the files in this package are as large as we would expect
+    if git-lfs worked properly
+    """
 
     longMessage = True
 
 
     def testDustMaps(self):
-        mb = 1024*1024
+        """
+        Go through contents of DustMaps directory and check that files
+        are the size we expect them to be.
+        """
+        mb = 1024*1024 # because os.path.getsize returns the size in bytes
         kb = 1024
         control_size_dict = {'SFD_dust_4096_ngp.fits':64*mb,
                              'SFD_dust_4096_sgp.fits':64*mb,
