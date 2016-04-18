@@ -12,6 +12,11 @@ class MapSizeUnitTest(unittest.TestCase):
 
     longMessage = True
 
+    def setUp(self):
+        self.lfs_msg='\nYou may not have git-lfs installed\n' + \
+                     'on your system\n' + \
+                     'http://developer.lsst.io/en/latest/tools/git_lfs.html'
+
 
     def testDustMaps(self):
         """
@@ -39,9 +44,21 @@ class MapSizeUnitTest(unittest.TestCase):
             size = os.path.getsize(full_name)
             self.assertLess(np.abs(size-control_size_dict[file_name]),
                             0.1*control_size_dict[file_name],
-                            msg='\nYou may not have git-lfs installed\n'+
-                            'on your system\n'+
-                            'http://developer.lsst.io/en/latest/tools/git_lfs.html')
+                            msg=self.lfs_msg)
+
+
+    def testStarMaps(self):
+        """
+        Test that the files in the StarMaps directory are all several
+        megabytes in size
+        """
+
+        root_dir = os.path.join(getPackageDir('sims_maps'), 'StarMaps')
+        list_of_files = os.listdir(root_dir)
+        for file_name in list_of_files:
+            full_name = os.path.join(root_dir, file_name)
+            self.assertGreater(os.path.getsize(full_name), 1024*1024,
+                               msg=self.lfs_msg)
 
 
 def suite():
