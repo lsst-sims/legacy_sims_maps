@@ -18,30 +18,29 @@ class MapSizeUnitTest(unittest.TestCase):
     longMessage = True
 
     def setUp(self):
-        self.lfs_msg='\nYou may not have git-lfs installed ' + \
-                     'on your system\n' + \
-                     'http://developer.lsst.io/en/latest/tools/git_lfs.html'
-
+        self.lfs_msg = '\nYou may not have git-lfs installed ' + \
+                       'on your system\n' + \
+                       'http://developer.lsst.io/en/latest/tools/git_lfs.html'
 
     def testDustMaps(self):
         """
         Go through contents of DustMaps directory and check that files
         are the size we expect them to be.
         """
-        mb = 1024*1024 # because os.path.getsize returns the size in bytes
+        mb = 1024*1024  # because os.path.getsize returns the size in bytes
         kb = 1024
-        control_size_dict = {'SFD_dust_4096_ngp.fits':64*mb,
-                             'SFD_dust_4096_sgp.fits':64*mb,
-                             'dust_nside_1024.npz':96*mb,
-                             'dust_nside_128.npz':1.5*mb,
-                             'dust_nside_16.npz':24*kb,
-                             'dust_nside_2.npz':582,
-                             'dust_nside_256.npz':6*mb,
-                             'dust_nside_32.npz':96*kb,
-                             'dust_nside_4.npz':1.7*kb,
-                             'dust_nside_512.npz':24*mb,
-                             'dust_nside_64.npz':384*kb,
-                             'dust_nside_8.npz':6.2*kb}
+        control_size_dict = {'SFD_dust_4096_ngp.fits': 64*mb,
+                             'SFD_dust_4096_sgp.fits': 64*mb,
+                             'dust_nside_1024.npz': 96*mb,
+                             'dust_nside_128.npz': 1.5*mb,
+                             'dust_nside_16.npz': 24*kb,
+                             'dust_nside_2.npz': 582,
+                             'dust_nside_256.npz': 6*mb,
+                             'dust_nside_32.npz': 96*kb,
+                             'dust_nside_4.npz': 1.7*kb,
+                             'dust_nside_512.npz': 24*mb,
+                             'dust_nside_64.npz': 384*kb,
+                             'dust_nside_8.npz': 6.2*kb}
 
         root_dir = getPackageDir('sims_maps')
         for file_name in control_size_dict:
@@ -50,7 +49,6 @@ class MapSizeUnitTest(unittest.TestCase):
             self.assertLess(np.abs(size-control_size_dict[file_name]),
                             0.1*control_size_dict[file_name],
                             msg=self.lfs_msg)
-
 
     def testStarMaps(self):
         """
