@@ -39,10 +39,12 @@ class MapSizeUnitTest(unittest.TestCase):
             full_name = os.path.join(self.pkg_dir, 'DustMaps', file_name)
             size = os.path.getsize(full_name)
             self.assertLess(np.abs(size-control_size_dict[file_name]),
-                            0.1*control_size_dict[file_name])
+                            0.1*control_size_dict[file_name],
+                            msg='offending file is %s' % file_name)
 
         list_of_files = os.listdir(os.path.join(self.pkg_dir, 'DustMaps'))
-        self.assertEqual(len(list_of_files), len(control_size_dict))
+        self.assertEqual(len(list_of_files), len(control_size_dict),
+                         msg='directory contents are: %s' % str(list_of_files))
 
     def testStarMaps(self):
         """
@@ -53,7 +55,8 @@ class MapSizeUnitTest(unittest.TestCase):
         list_of_files = os.listdir(root_dir)
         for file_name in list_of_files:
             full_name = os.path.join(root_dir, file_name)
-            self.assertGreater(os.path.getsize(full_name), 1024*1024)
+            self.assertGreater(os.path.getsize(full_name), 1024*1024,
+                               msg='offending file is %s' % file_name)
 
         # verify that we got all of the expected StarMaps
         self.assertIn('starDensity_u_nside_64.npz', list_of_files)
