@@ -57,6 +57,21 @@ class MapSizeUnitTest(unittest.TestCase):
             self.assertGreater(os.path.getsize(full_name), 1024*1024,
                                msg=self.lfs_msg)
 
+        # verify that we got all of the expected StarMaps
+        self.assertIn('starDensity_u_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_u_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_g_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_g_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_r_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_r_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_i_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_i_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_z_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_z_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_y_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_y_wdstars_nside_64.npz', list_of_files)
+
+        self.assertEqual(len(list_of_files), 12)
 
 if __name__ == "__main__":
     unittest.main()
