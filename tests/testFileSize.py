@@ -1,12 +1,6 @@
 import numpy as np
 import os
 import unittest
-import lsst.utils.tests
-from lsst.utils import getPackageDir
-
-
-def setup_module(module):
-    lsst.utils.tests.init()
 
 
 class MapSizeUnitTest(unittest.TestCase):
@@ -18,6 +12,8 @@ class MapSizeUnitTest(unittest.TestCase):
     longMessage = True
 
     def setUp(self):
+        test_dir = os.path.split(os.path.abspath(__file__))[0]
+        self.pkg_dir = test_dir.strip('tests')
         self.lfs_msg = '\nYou may not have git-lfs installed ' + \
                        'on your system\n' + \
                        'http://developer.lsst.io/en/latest/tools/git_lfs.html'
@@ -42,9 +38,8 @@ class MapSizeUnitTest(unittest.TestCase):
                              'dust_nside_64.npz': 384*kb,
                              'dust_nside_8.npz': 6.2*kb}
 
-        root_dir = getPackageDir('sims_maps')
         for file_name in control_size_dict:
-            full_name = os.path.join(root_dir, 'DustMaps', file_name)
+            full_name = os.path.join(self.pkg_dir, 'DustMaps', file_name)
             size = os.path.getsize(full_name)
             self.assertLess(np.abs(size-control_size_dict[file_name]),
                             0.1*control_size_dict[file_name],
@@ -55,8 +50,7 @@ class MapSizeUnitTest(unittest.TestCase):
         Test that the files in the StarMaps directory are all several
         megabytes in size
         """
-
-        root_dir = os.path.join(getPackageDir('sims_maps'), 'StarMaps')
+        root_dir = os.path.join(self.pkg_dir, 'StarMaps')
         list_of_files = os.listdir(root_dir)
         for file_name in list_of_files:
             full_name = os.path.join(root_dir, file_name)
@@ -64,9 +58,5 @@ class MapSizeUnitTest(unittest.TestCase):
                                msg=self.lfs_msg)
 
 
-class MemoryTestClass(lsst.utils.tests.MemoryTestCase):
-    pass
-
 if __name__ == "__main__":
-    lsst.utils.tests.init()
     unittest.main()

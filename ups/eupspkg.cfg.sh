@@ -1,4 +1,4 @@
 install(){
     default_install
-    python tests/testContents.py
+    python tests/testFileSize.py
 }
