@@ -14,9 +14,6 @@ class MapSizeUnitTest(unittest.TestCase):
     def setUp(self):
         test_dir = os.path.split(os.path.abspath(__file__))[0]
         self.pkg_dir = test_dir.strip('tests')
-        self.lfs_msg = '\nYou may not have git-lfs installed ' + \
-                       'on your system\n' + \
-                       'http://developer.lsst.io/en/latest/tools/git_lfs.html'
 
     def testDustMaps(self):
         """
@@ -42,8 +39,7 @@ class MapSizeUnitTest(unittest.TestCase):
             full_name = os.path.join(self.pkg_dir, 'DustMaps', file_name)
             size = os.path.getsize(full_name)
             self.assertLess(np.abs(size-control_size_dict[file_name]),
-                            0.1*control_size_dict[file_name],
-                            msg=self.lfs_msg)
+                            0.1*control_size_dict[file_name])
 
         list_of_files = os.listdir(os.path.join(self.pkg_dir, 'DustMaps'))
         self.assertEqual(len(list_of_files), len(control_size_dict))
@@ -57,8 +53,7 @@ class MapSizeUnitTest(unittest.TestCase):
         list_of_files = os.listdir(root_dir)
         for file_name in list_of_files:
             full_name = os.path.join(root_dir, file_name)
-            self.assertGreater(os.path.getsize(full_name), 1024*1024,
-                               msg=self.lfs_msg)
+            self.assertGreater(os.path.getsize(full_name), 1024*1024)
 
         # verify that we got all of the expected StarMaps
         self.assertIn('starDensity_u_nside_64.npz', list_of_files)
