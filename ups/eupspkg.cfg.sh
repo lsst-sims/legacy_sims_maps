@@ -1,5 +1,6 @@
 install(){
     default_install
+    cd $PREFIX
     cd DustMaps
     curl -O "https://lsst-web.ncsa.illinois.edu/sim-data/DustMaps/dust_maps_161213.tar.gz"
     tar zxvf dust_maps_161213.tar.gz
