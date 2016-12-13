@@ -45,6 +45,9 @@ class MapSizeUnitTest(unittest.TestCase):
                             0.1*control_size_dict[file_name],
                             msg=self.lfs_msg)
 
+        list_of_files = os.listdir(os.path.join(self.pkg_dir, 'DustMaps'))
+        self.assertEqual(len(list_of_files), len(control_size_dict))
+
     def testStarMaps(self):
         """
         Test that the files in the StarMaps directory are all several
