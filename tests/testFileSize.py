@@ -1,12 +1,6 @@
 import numpy as np
 import os
 import unittest
-import lsst.utils.tests
-from lsst.utils import getPackageDir
-
-
-def setup_module(module):
-    lsst.utils.tests.init()
 
 
 class MapSizeUnitTest(unittest.TestCase):
@@ -18,9 +12,8 @@ class MapSizeUnitTest(unittest.TestCase):
     longMessage = True
 
     def setUp(self):
-        self.lfs_msg = '\nYou may not have git-lfs installed ' + \
-                       'on your system\n' + \
-                       'http://developer.lsst.io/en/latest/tools/git_lfs.html'
+        test_dir = os.path.split(os.path.abspath(__file__))[0]
+        self.pkg_dir = test_dir.strip('tests')
 
     def testDustMaps(self):
         """
@@ -42,31 +35,45 @@ class MapSizeUnitTest(unittest.TestCase):
                              'dust_nside_64.npz': 384*kb,
                              'dust_nside_8.npz': 6.2*kb}
 
-        root_dir = getPackageDir('sims_maps')
         for file_name in control_size_dict:
-            full_name = os.path.join(root_dir, 'DustMaps', file_name)
+            full_name = os.path.join(self.pkg_dir, 'DustMaps', file_name)
             size = os.path.getsize(full_name)
             self.assertLess(np.abs(size-control_size_dict[file_name]),
                             0.1*control_size_dict[file_name],
-                            msg=self.lfs_msg)
+                            msg='offending file is %s' % file_name)
+
+        list_of_files = os.listdir(os.path.join(self.pkg_dir, 'DustMaps'))
+        self.assertEqual(len(list_of_files), len(control_size_dict)+1,
+                         msg='directory contents are: %s' % str(list_of_files))
 
     def testStarMaps(self):
         """
         Test that the files in the StarMaps directory are all several
         megabytes in size
         """
-
-        root_dir = os.path.join(getPackageDir('sims_maps'), 'StarMaps')
+        root_dir = os.path.join(self.pkg_dir, 'StarMaps')
         list_of_files = os.listdir(root_dir)
         for file_name in list_of_files:
-            full_name = os.path.join(root_dir, file_name)
-            self.assertGreater(os.path.getsize(full_name), 1024*1024,
-                               msg=self.lfs_msg)
+            if file_name != '.gitignore':
+                full_name = os.path.join(root_dir, file_name)
+                self.assertGreater(os.path.getsize(full_name), 1024*1024,
+                                   msg='offending file is %s' % file_name)
 
+        # verify that we got all of the expected StarMaps
+        self.assertIn('starDensity_u_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_u_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_g_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_g_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_r_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_r_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_i_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_i_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_z_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_z_wdstars_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_y_nside_64.npz', list_of_files)
+        self.assertIn('starDensity_y_wdstars_nside_64.npz', list_of_files)
 
-class MemoryTestClass(lsst.utils.tests.MemoryTestCase):
-    pass
+        self.assertEqual(len(list_of_files), 13)
 
 if __name__ == "__main__":
-    lsst.utils.tests.init()
     unittest.main()
