@@ -9,3 +9,5 @@ and cd to:
 Data stored in that directory is avaialble via:
 https://lsst-web.ncsa.illinois.edu/sim-data/
 rsync lsst-rsync.ncsa.illinois.edu::sim/
+
+Maps created with code in https://github.com/lsst/sims_maf/tree/master/python/lsst/sims/maf/maps
