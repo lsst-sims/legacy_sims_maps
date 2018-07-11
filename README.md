@@ -10,5 +10,4 @@ Data stored in that directory is avaialble via:
 https://lsst-web.ncsa.illinois.edu/sim-data/
 rsync lsst-rsync.ncsa.illinois.edu::sim/
 
-Maps created with code in https://github.com/lsst/sims_catUtils/tree/master/python/lsst/sims/catUtils/dust
-and https://github.com/lsst/sims_catUtils/tree/master/python/lsst/sims/catUtils/stellarDensity
+Maps created with code in https://github.com/lsst/sims_catUtils/tree/master/bin.src
