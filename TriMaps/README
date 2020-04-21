@@ -1,0 +1,30 @@
+from epyc.astro.washington.edu:/data/epyc/projects/trilegal/lsstsim/densitymaps/README
+
+WHAT'S THIS?
+
+This folder contains stellar density maps and luminosity functions derived from TRILEGAL simulations of the LSST stellar content. The maps are in numpy files with the same format as those derived from Mario Juric's Galfast code (see https://lsst-web.ncsa.illinois.edu/sim-data/StarMaps/): essentially, they provide the cumulative LF (number of stars brighter than every luminosity bin), per sqrdeg, for every LSST filter. 
+
+Present simulations are the "dec2019" version, and will be soon revised as explained below. They were computed in high spatial resolution and then degraded to the present nside=64 and nside=128 nested healpix schemes, for inclusion in MAF. For details about the physical input used in the calculations, you can either wait the detailed description to be uploaded to NOAO Data Lab, or refer to the following people:
+
+Piero Dal Tio, piero.daltio@unipd.it - pixelisation of the sky, dust model, stellar models
+
+Giada Pastorelli, gpastorelli@stsci.edu - for Magellanic Clouds
+
+Leo Girardi, leo.girardi@inaf.it - for Milky Way parameters
+
+NOVELTIES AND DIFFERENCES
+
+Compared to the Galfast results, these are the main differences:
+
+- the central areas of the Magellanic Clouds are now included, with realistic star counts
+
+- for most of LSST survey area: all assumptions about the spatial distribution of stars and stellar models are different, and calibrated with different data, so you can expect moderate differences in star counts at all sky locations and magnitudes (and especially at faint magnitudes). 
+
+- these files use healpixels in Galactic coordinates, while Galfast files have them in equatorial coordinates - but this is already dealt with in MAF scripts (thanks Peter Yoachim!)
+ 
+- In the present files, white dwarfs are included mixed with normal stars.
+
+WHAT IS MISSING
+
+These files are still missing the close binaries (being computed by Piero Dal Tio, and calibrated with Gaia), and the outskirts of the Magellanic Clouds. Revisions will be in the sense of increasing stellar densities by a few per cent. Anyway we consider the stellar densities already close enough to the final numbers, to be useful in estimates of the crowding limits. 
+
