@@ -1,2 +1,0 @@
-setupRequired(numpy)
-setupRequired(python)
